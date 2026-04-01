@@ -1,0 +1,12 @@
+{
+    "validUser": {
+    "firstName": "James",
+    "lastName": "Cortney",
+    "email": "test@test.com",
+    "phoneNumber": "4578390923",
+    "occupation": "Engineer",
+    "gender": "male",
+    "password": "Password@123",
+    "confirmPassword": "Password@123"
+  }
+}

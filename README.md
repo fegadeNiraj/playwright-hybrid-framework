@@ -18,9 +18,13 @@ This project demonstrates a scalable Playwright automation framework combining U
 - Data-driven testing using JSON
 - Reusable fixtures for clean test setup
 
-## Key Highlight
-Implemented API-based authentication and injected the token into localStorage to bypass UI login, improving test stability and execution speed.
+## Key Highlight## Key Highlights
 
+- Designed a hybrid UI + API automation framework using Playwright
+- Implemented token-based authentication to bypass UI login
+- Reduced test execution time by eliminating repeated login steps
+- Structured framework using POM, fixtures, and API layer separation
+- 
 ## How to Run
 ```bash
 npm install

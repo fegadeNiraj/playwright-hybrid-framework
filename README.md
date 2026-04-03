@@ -25,3 +25,11 @@ Implemented API-based authentication and injected the token into localStorage to
 ```bash
 npm install
 npx playwright test
+```
+
+## Reports / Execution
+
+![Execution Screenshot](./screenshots/dashboard.png)
+![Execution Screenshot](./screenshots/registrationsuccess.png)
+
+

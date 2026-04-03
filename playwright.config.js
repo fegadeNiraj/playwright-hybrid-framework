@@ -19,7 +19,7 @@ export default defineConfig({
   retries: 1,
 
   use: {
-    headless: true,
+    headless: false,
     screenshot:'only-on-failure',
     video:'retain-on-failure',
     baseURL: 'https://rahulshettyacademy.com',

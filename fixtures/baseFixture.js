@@ -2,6 +2,8 @@ const base = require('@playwright/test')
 const RegisterPage = require("../pages/RegisterPage");
 const LoginPage = require("../pages/LoginPage");
 const AuthApi = require('../api/AuthApi');
+require('dotenv').config();
+
 const test = base.test.extend({
     registerPage: async({page},use)=>{
         const registerPage = new RegisterPage(page);
@@ -18,8 +20,8 @@ const test = base.test.extend({
         const authApi = new AuthApi(request);
 
         const response = await authApi.login(
-            "test@34.com",
-            "Password@1234"
+            process.env.EMAIL,
+            process.env.PASSWORD
         );
 
         const body = await response.json();

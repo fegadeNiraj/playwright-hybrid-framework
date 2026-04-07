@@ -1,7 +1,7 @@
 const {test,expect}=require("../../fixtures/baseFixture");
 const userData = require("../../test-data/userData.json")
 
-test('Register with existing user should fail',async({registerPage,page})=>{
+test('Register with existing user should fail @regression @ui',async({registerPage,page})=>{
     await registerPage.goto();
     
     const user = userData.validUser;

@@ -1,7 +1,7 @@
 const {test, expect} = require("../../fixtures/baseFixture");
 const userData = require("../../test-data/userData.json");
 
-test('Register Test',async({registerPage,page})=>{
+test('User Registration Test @regression @ui',async({registerPage,page})=>{
 
     await registerPage.goto();
 

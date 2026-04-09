@@ -7,7 +7,7 @@ Designed to improve execution speed, maintainability, and test reliability using
 ---
 
 ## Tech Stack
-- Playwright (JavaScript)
+- Playwright (TypeScript+JavaScript)
 - Node.js
 - Page Object Model (POM)
 - Playwright Fixtures

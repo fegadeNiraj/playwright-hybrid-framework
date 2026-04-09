@@ -2,7 +2,7 @@ const ENV = process.env.TEST_ENV || "qa";
 
 const config = {
     qa : {
-        baseurl : "https://rahulshettyacademy.com",
+        baseurl : "https://rahulshettyacademy.com/client/#/auth/login",
         email : process.env.EMAIL,
         password: process.env.PASSWORD,
     },

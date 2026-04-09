@@ -1,5 +1,6 @@
 // @ts-check
-import { defineConfig, devices } from '@playwright/test';
+const { defineConfig } = require('@playwright/test');
+require('dotenv').config();
 
 /**
  * Read environment variables from file.
@@ -12,16 +13,16 @@ import { defineConfig, devices } from '@playwright/test';
 /**
  * @see https://playwright.dev/docs/test-configuration
  */
-export default defineConfig({
+module.exports = defineConfig({
   testDir: './tests',
   fullyParallel: true,
-  workers:3,
+  workers: process.env.CI ? 2 : 3,
   reporter: 'html',
   timeout: 30000,
   retries: 1,
 
   use: {
-    headless: true,
+    headless: process.env.CI ? true : false || process.env.HEADLESS === 'true',
     screenshot:'only-on-failure',
     video:'retain-on-failure',
     baseURL: 'https://rahulshettyacademy.com',

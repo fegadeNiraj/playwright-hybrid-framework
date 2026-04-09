@@ -15,25 +15,30 @@ const test = base.test.extend({
         await use(loginPage)
     },
 
-    authPage: async({page,request},use)=>{
+    authPage: async ({ page, request }, use) => {
 
-        const authApi = new AuthApi(request);
+    const authApi = new AuthApi(request);
 
-        const response = await authApi.login(
-            env.email,
-            env.password
-        );
+    const response = await authApi.login(
+        env.email,
+        env.password
+    );
 
-        const body = await response.json();
-        const token = await body.token;
+    const body = await response.json();
+    const token = body.token;
 
-        await page.addInitScript(token => {
-            window.localStorage.setItem('token', token);
-        }, token);
+    console.log(body,token);
 
-        await use(page)
-        
-    }
+    await page.goto(env.baseurl);
+
+    await page.evaluate((token) => {
+        localStorage.setItem('token', token);
+    }, token);
+
+    await page.reload();
+
+    await use(page);
+}
 });
 
 module.exports = {

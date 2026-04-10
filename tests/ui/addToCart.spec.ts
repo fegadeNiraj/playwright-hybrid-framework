@@ -13,7 +13,7 @@ test('Add single product to cart and verify success @smoke @ui',async({dashboard
     
 });
 
-test.only('Add multiple products to cart and verify success @smoke @ui', async ({ dashboardPage }) => {
+test('Add multiple products to cart and verify success @smoke @ui', async ({ dashboardPage }) => {
 
     const page = dashboardPage.page;
 

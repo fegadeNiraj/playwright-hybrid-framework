@@ -27,19 +27,14 @@ export class DashboardPage {
 
     async addProductToCart(productName:string) 
     {
-        const count = await this.products.count();
+        const product = this.products.filter({
+            has: this.page.locator('h5',{hasText:productName})
+        }).first();
 
-        for (let i = 0; i < count; i++) {
-            const product = this.products.nth(i);
-            const title = await product.locator('h5').textContent();
+        await expect(product).toBeVisible();
 
-            if (title?.trim() === productName) {
-                await product.getByText('Add To Cart').click();
-                return;
-            }
-        }
+        await product.getByText('Add To Cart').click();
 
-        throw new Error(`Product not found: ${productName}`);
     }
 
     async clearCart() 
@@ -63,6 +58,23 @@ export class DashboardPage {
         }
 
         await this.page.goBack();
+    }
+
+    async verifyProductsInCart(productsList:string[]){
+        await this.cartButton.click();
+
+        const cartItems = this.page.locator('.items');
+
+        await expect(cartItems.first()).toBeVisible();
+
+        const titles = await cartItems.locator('h3').allTextContents();
+        const normalized = titles.map(t => t.trim());
+
+        for(const product of productsList)
+        {
+            expect(normalized).toContain(product);
+        }
+
     }
 
 }

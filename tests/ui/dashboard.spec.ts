@@ -19,3 +19,22 @@ test('Add single product and verify cart count',async({dashboardPage})=>{
     await expect(dashboardPage.cartButton).toContainText('1');
 
 })
+
+test('Add multiple products and verify cart count',async({dashboardPage})=>{
+
+    await dashboardPage.waitForDashboardPageToBeLoaded();
+    await dashboardPage.waitProductsToBeVisible();
+
+    await dashboardPage.clearCart();
+
+    const products = ['ZARA COAT 3','ADIDAS ORIGINAL'];
+
+    for(const product of products){
+        await dashboardPage.addProductToCart(product);
+    }
+
+    await expect(dashboardPage.cartButton).toContainText('2');
+
+    await dashboardPage.verifyProductsInCart(products);
+
+})

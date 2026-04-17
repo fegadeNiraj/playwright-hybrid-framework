@@ -1,5 +1,5 @@
 {
-    "validUser": {
+  "validUser": {
     "firstName": "James",
     "lastName": "Cortney",
     "email": "test@test.com",
@@ -8,5 +8,16 @@
     "gender": "male",
     "password": "Password@123",
     "confirmPassword": "Password@123"
+  },
+  "checkoutInfo": {
+    "creditCardNumber": "4567123490874632",
+    "expiryDate": {
+      "month": "04",
+      "year": "31"
+    },
+    "cvv": "341",
+    "nameOnCard": "James Cortney",
+    "shippingName": "James",
+    "shippingCountry": "Can"
   }
 }

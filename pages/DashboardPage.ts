@@ -23,13 +23,18 @@ export class DashboardPage {
     }
 
     async addProductToCart(productName: string) {
+
+        const cartTextBefore = await this.cartButton.textContent();
+        const currentCount = Number(cartTextBefore?.match(/\d+/)?.[0] || 0);
+
         const product = this.products.filter({
             has: this.page.locator('h5', { hasText: productName })
         }).first();
 
         await expect(product).toBeVisible();
+        await product.locator('button:has-text("Add To Cart")').click();
 
-        await product.getByText('Add To Cart').click();
+        await expect(this.cartButton).toContainText(String(currentCount + 1));
 
     }
 
@@ -38,18 +43,12 @@ export class DashboardPage {
 
         const cartItems = this.page.locator('.items');
 
-        if (await cartItems.count() === 0) {
-            await this.page.goBack();
-            return;
-        }
-
         while (await cartItems.count() > 0) {
-            const item = cartItems.first();
+            const firstItem = cartItems.first();
 
-            await item.locator('.btn-danger').click();
+            await firstItem.locator('.btn-danger').click();
 
-            // wait until item disappears
-            await expect(item).toHaveCount(0);
+            await expect(firstItem).toBeHidden();
         }
 
         await this.page.goBack();
@@ -58,13 +57,10 @@ export class DashboardPage {
     async verifyProductsInCart(productsList: string[]) {
         await this.cartButton.click();
 
-        const cartItems = this.page.locator('.items');
-        const count = await cartItems.count();
+        await this.page.waitForLoadState('networkidle');
 
-        if(count === 0)
-        {
-            throw new Error("Cart is empty, no products found");
-        }
+        const cartItems = this.page.locator('.items');
+        await expect(cartItems.first()).toBeVisible();
 
         const titles = await cartItems.locator('h3').allTextContents();
         const normalized = titles.map(t => t.trim());

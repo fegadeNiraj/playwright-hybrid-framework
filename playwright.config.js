@@ -16,7 +16,7 @@ require('dotenv').config();
 module.exports = defineConfig({
   testDir: './tests',
   fullyParallel: true,
-  workers: process.env.CI ? 2 : 3,
+  workers: 1,
   reporter: [
     ['list'],
     ['allure-playwright']
@@ -26,10 +26,10 @@ module.exports = defineConfig({
 
   use: {
     headless: process.env.CI ? true : false || process.env.HEADLESS === 'true',
-    screenshot:'only-on-failure',
-    video:'retain-on-failure',
+    screenshot: 'only-on-failure',
+    video: 'retain-on-failure',
     baseURL: 'https://rahulshettyacademy.com',
-    browserName:'chromium',
+    browserName: 'chromium',
     trace: 'on-first-retry',
   },
   projects: [

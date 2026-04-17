@@ -30,10 +30,13 @@ test('Add multiple products and verify cart count', async ({ dashboardPage }) =>
 
     const products = ['ZARA COAT 3', 'ADIDAS ORIGINAL'];
 
-    for (const product of products) {
-        const beforeText = await dashboardPage.cartButton.textContent();
-        await dashboardPage.addProductToCart(product);
-        await expect(dashboardPage.cartButton).not.toHaveText(beforeText || '');
+    for (let i = 0; i < products.length; i++) {
+
+        await dashboardPage.addProductToCart(products[i]);
+
+        await expect(dashboardPage.cartButton).toContainText(String(i + 1));
+
+        await dashboardPage.page.waitForLoadState('networkidle');
     }
 
     await dashboardPage.verifyProductsInCart(products);
@@ -53,6 +56,7 @@ test('Remove product and verify cart updated', async ({ dashboardPage }) => {
         const beforeText = await dashboardPage.cartButton.textContent();
         await dashboardPage.addProductToCart(product);
         await expect(dashboardPage.cartButton).not.toHaveText(beforeText || '');
+        await dashboardPage.page.waitForLoadState('networkidle');
     }
 
     await dashboardPage.removeProductFromCart('ZARA COAT 3');

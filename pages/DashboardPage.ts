@@ -1,34 +1,30 @@
 import { expect, Locator, Page } from "@playwright/test";
 
 export class DashboardPage {
-    page : Page;
+    page: Page;
     products: Locator;
-    cartButton:Locator;
-    constructor(page:Page) {
+    cartButton: Locator;
+    constructor(page: Page) {
         this.page = page;
         this.products = page.locator(".card-body");
         this.cartButton = page.locator("//button[@routerlink='/dashboard/cart']");
     }
 
-    async waitForDashboardPageToBeLoaded()
-    {
+    async waitForDashboardPageToBeLoaded() {
         await expect(this.page).toHaveURL("/client/#/dashboard/dash");
     }
 
-    async waitProductsToBeVisible()
-    {
+    async waitProductsToBeVisible() {
         await expect(this.products.first()).toBeVisible();
     }
 
-    async getProductsCount()
-    {
+    async getProductsCount() {
         return this.products.count();
     }
 
-    async addProductToCart(productName:string) 
-    {
+    async addProductToCart(productName: string) {
         const product = this.products.filter({
-            has: this.page.locator('h5',{hasText:productName})
+            has: this.page.locator('h5', { hasText: productName })
         }).first();
 
         await expect(product).toBeVisible();
@@ -37,8 +33,7 @@ export class DashboardPage {
 
     }
 
-    async clearCart() 
-    {
+    async clearCart() {
         await this.cartButton.click();
 
         const cartItems = this.page.locator('.items');
@@ -60,7 +55,7 @@ export class DashboardPage {
         await this.page.goBack();
     }
 
-    async verifyProductsInCart(productsList:string[]){
+    async verifyProductsInCart(productsList: string[]) {
         await this.cartButton.click();
 
         const cartItems = this.page.locator('.items');
@@ -70,11 +65,31 @@ export class DashboardPage {
         const titles = await cartItems.locator('h3').allTextContents();
         const normalized = titles.map(t => t.trim());
 
-        for(const product of productsList)
-        {
+        for (const product of productsList) {
             expect(normalized).toContain(product);
         }
 
+    }
+
+    async removeProductFromCart(productName: string) {
+
+        await this.cartButton.click();
+
+        const cartItems = this.page.locator('.items');
+
+        await expect(cartItems.first()).toBeVisible();
+
+        const product = cartItems.filter({
+            has: this.page.locator('h3', { hasText: productName })
+        }).first();
+
+        await expect(product).toBeVisible();
+
+        await product.locator('.btn-danger').click();
+
+        await expect(
+            cartItems.locator('h3').filter({ hasText: productName })
+        ).toHaveCount(0);
     }
 
 }

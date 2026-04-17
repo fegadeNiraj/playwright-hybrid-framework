@@ -96,7 +96,10 @@ Generates execution reports as artifacts
 ## Reports / Execution
 
 ![Execution Screenshot](./screenshots/dashboard.png)
+
 ![Execution Screenshot](./screenshots/registrationsuccess.png)
+
+![Allure Report](./screenshots/allure_report.png)
 
 
 

@@ -2,75 +2,107 @@
 
 ## Overview
 A scalable Playwright-based automation framework combining UI and API testing.  
-Designed to improve execution speed, maintainability, and test reliability using modern SDET practices.
+Designed with a focus on stability, maintainability, and real-world test reliability.
 
 ---
 
 ## Tech Stack
-- Playwright (TypeScript+JavaScript)
+- Playwright (TypeScript + JavaScript)
 - Node.js
 - Page Object Model (POM)
 - Playwright Fixtures
 - API Testing (Playwright request)
+- GitHub Actions (CI/CD)
 
 ---
 
 ## Key Highlights
-- Hybrid UI + API automation framework
-- API-based authentication using token injection (bypasses UI login)
-- Parallel test execution using Playwright workers
-- Test tagging for selective execution (smoke/regression)
-- Environment-based configuration using `.env`
-- Clean architecture with separation of Pages, API, and Fixtures
+- Hybrid UI + API automation framework  
+- API-based authentication using token injection (bypasses UI login)  
+- Deterministic state-based synchronization (eliminates flaky tests)  
+- Controlled test isolation to handle shared application state  
+- Parallel execution for API tests and serial execution for UI tests  
+- Test tagging for selective execution (smoke/regression)  
+- Environment-based configuration using `.env`  
+- Clean architecture with separation of Pages, API, Fixtures, and Utils  
+
+---
+
+## Stability Strategy (Important)
+- Avoided `waitForTimeout` and unreliable waits  
+- Replaced UI-based waits (toast/networkidle) with **state-based assertions**  
+- Ensured synchronization using:
+  - Cart state validation  
+  - DOM-based visibility checks  
+- Resolved headless vs headed inconsistencies  
+- Handled shared session issues by controlling execution mode  
 
 ---
 
 ## Features
-- UI automation (Login, Register, End-to-End flows)
-- API automation (Authentication & user APIs)
-- UI + API integration testing
-- Reusable fixtures for setup and authentication
-- Data-driven testing using JSON
+- UI automation (Login, Register, Cart flows)  
+- API automation (Authentication & user APIs)  
+- UI + API integration testing  
+- Reusable fixtures for setup and authentication  
+- Data-driven testing using JSON  
 
 ---
-
 
 ---
 
 ## Setup Instructions
 
-1. Install dependencies
+### Install dependencies
 ```bash
 npm install
 ```
-2. Install Playwright browsers
+### Install Playwright browsers
 ```bash
 npx playwright install
 ```
-3. Add environment variables
-Create .env file
+### Add environment variables
+
+Create a .env file:
+
+```env
 EMAIL=your_email
 PASSWORD=your_password
+```
 
-4. Run all tests
+### Run all tests
 ```bash
 npm test
-```
-5. Run smoke/regression tests
+``` 
+### Run specific test types
 ```bash
 npm run smoke
 npm run regression
 ```
-6. Run in headed mode
+### Run in headed mode
 ```bash
 npm run headed
 ```
-7. Reports
+### Reports
 ```bash
 npm run report
 ```
+
+### CI/CD
+Integrated with GitHub Actions
+Executes tests on every push
+Generates execution reports as artifacts
+
 
 ## Reports / Execution
 
 ![Execution Screenshot](./screenshots/dashboard.png)
 ![Execution Screenshot](./screenshots/registrationsuccess.png)
+
+
+
+
+### Key Learnings
+Importance of state-based synchronization over UI-based waits
+Handling flaky tests in headless execution
+Managing shared session issues in parallel execution
+Designing maintainable and scalable automation frameworks

@@ -59,8 +59,12 @@ export class DashboardPage {
         await this.cartButton.click();
 
         const cartItems = this.page.locator('.items');
+        const count = await cartItems.count();
 
-        await expect(cartItems.first()).toBeVisible();
+        if(count === 0)
+        {
+            throw new Error("Cart is empty, no products found");
+        }
 
         const titles = await cartItems.locator('h3').allTextContents();
         const normalized = titles.map(t => t.trim());

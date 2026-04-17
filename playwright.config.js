@@ -17,7 +17,10 @@ module.exports = defineConfig({
   testDir: './tests',
   fullyParallel: true,
   workers: process.env.CI ? 2 : 3,
-  reporter: 'html',
+  reporter: [
+    ['list'],
+    ['allure-playwright']
+  ],
   timeout: 30000,
   retries: 1,
 
